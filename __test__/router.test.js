@@ -13,9 +13,11 @@ let users = {
 };
 
 describe('Auth Router', () => {
-  Object.keys(users).forEach((userType) => {
+  Object.keys(users).forEach((userType, index) => {
     describe(`${userType} users`, () => {
       it('can create one', async () => {
+        // console.log(users[userType], index)
+        console.log(users[userType], index)
         const response = await mockRequest
           .post('/signup')
           .send(users[userType]);
@@ -27,9 +29,12 @@ describe('Auth Router', () => {
       });
 
       it('can signin with basic', async () => {
+        console.log(users[userType], index)
+
         const response = await mockRequest
           .post('/signin')
           .auth(users[userType].username, users[userType].password);
+        console.log(users[userType], index)
 
         const userObject = response.body;
         expect(response.status).toBe(200);
